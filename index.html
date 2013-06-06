@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Convert plain text into HTML safe text.">
+    <meta name="viewport" content="width=device-width">
+    <title>Text to HTML Converter</title>
+    <style>
+      .labels  { display: inline-block; width: 4em; }
+      .buttons { width: 6em; } 
+    </style>
+    <script src="local.js"></script>
+    <script src="../../js/Markdown.Converter.js"></script>
+    <script src="../../js/Markdown.Sanitizer.js"></script>
+    <script>
+    function execute (mode) {
+      var isList, isMarkdown, result, text, html, wrap, converter;
+      
+      isList     = mode === "list" ? true : false;
+      isMarkdown = mode === "markdown" ? true : false;
+      text       = document.getElementById('text');
+      html       = document.getElementById('html');
+      wrap       = document.getElementById('wrap');
+      wrap       = (wrap && wrap.value) ? parseInt(wrap.value, 10) : undefined;
+
+      result = util.encode({
+        text:        text.value,
+        useEntities: document.getElementById('radioEntities').checked,
+        trim:        !isList && !isMarkdown && document.getElementById('trim').checked,
+        wrap:        isList || isMarkdown ? 0 : wrap
+      });
+      if (isMarkdown) {
+        if (converter === undefined) { converter = new Markdown.getSanitizingConverter(); }
+        result = converter.makeHtml(result);
+      } else if (isList) {
+        result = util.makeList({
+          text:      result,
+          separator: document.getElementById('separator').value,
+          prefix:    document.getElementById('prefix').value,
+          postfix:   document.getElementById('postfix').value,
+          wrap:      wrap
+        });
+      }
+      html.value = result;
+      html.focus();
+    }
+    </script>
+  </head>
+  <body>
+    <h1>Text to HTML Converter</h1>
+    <div><textarea id="text" cols="100" rows="10" onfocus="this.select()"></textarea></div>
+    <div style="margin: 20px;">
+      <input id="radioHex" name="encoding" type="radio" value="hex" />
+      <label for="radioHex">Hex Codes</label>
+      
+      <input id="radioEntities" name="encoding" type="radio" value="entities" checked="checked" />
+      <label for="radioEntities">Entities</label>
+      
+      <br />
+      
+      <label for="separator" class="labels">Separator</label>
+      <input id="separator" type="text" value="[\r\n]+" onfocus="this.select()" />
+      <br />
+      
+      <label for="prefix" class="labels">Prefix</label>
+      <input id="prefix" type="text" onfocus="this.select()" />
+      <br />
+
+      <label for="postfix" class="labels">Postfix</label>
+      <input id="postfix" type="text" onfocus="this.select()" />
+      <br />
+
+      <label for="wrap" class="labels">Wrap</label>
+      <input id="wrap" type="text" onfocus="this.select()" value="80" />
+      <br />
+
+      <label for="trim">Trim White Space</label>
+      <input id="trim" type="checkbox" checked="checked" />
+      <br />
+
+      <div style="margin-top: 0.5em;">
+        <input type="button" class="buttons" value="Plain" onclick="execute()" />
+        <input type="button" class="buttons" value="Markdown" onclick="execute('markdown')" />
+        <input type="button" class="buttons" value="List" onclick="execute('list')" />
+      </div>
+    </div>
+    <div><textarea id="html" cols="100" rows="10" onfocus="this.select()"></textarea></div>
+  </body>
+</html>
