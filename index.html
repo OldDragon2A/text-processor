@@ -17,51 +17,37 @@
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
-
-    <header>
-      <h1>Text Processor</h1>
-    </header>
-    
-    <div><textarea id="text" cols="100" rows="10" onfocus="this.select()"></textarea></div>
-
-    <div style="margin: 20px;">
-      <input id="radioHex" name="encoding" type="radio" value="hex" />
-      <label for="radioHex">Hex Codes</label>
-      
-      <input id="radioEntities" name="encoding" type="radio" value="entities" checked="checked" />
-      <label for="radioEntities">Entities</label>
-      
-      <br />
-      
-      <label for="separator" class="labels">Separator</label>
-      <input id="separator" type="text" value="[\r\n]+" onfocus="this.select()" />
-      <br />
-      
-      <label for="prefix" class="labels">Prefix</label>
-      <input id="prefix" type="text" onfocus="this.select()" />
-      <br />
-
-      <label for="postfix" class="labels">Postfix</label>
-      <input id="postfix" type="text" onfocus="this.select()" />
-      <br />
-
-      <label for="wrap" class="labels">Wrap</label>
-      <input id="wrap" type="text" onfocus="this.select()" value="80" />
-      <br />
-
-      <label for="trim">Trim White Space</label>
-      <input id="trim" type="checkbox" checked="checked" />
-      <br />
-
-      <div style="margin-top: 0.5em;">
-        <input type="button" class="buttons" value="Plain" onclick="execute()" />
-        <input type="button" class="buttons" value="Markdown" onclick="execute('markdown')" />
-        <input type="button" class="buttons" value="List" onclick="execute('list')" />
+    <div>
+      <div><textarea id="text" onfocus="this.select()"></textarea></div>
+      <div style="margin: 20px;">
+        <input id="radioHex" name="encoding" type="radio" value="hex" />
+        <label for="radioHex">Hex Codes</label>
+        <input id="radioEntities" name="encoding" type="radio" value="entities" checked="checked" />
+        <label for="radioEntities">Entities</label>
+        <br />
+        <label for="separator" class="labels">Separator</label>
+        <input id="separator" type="text" value="[\r\n]+" onfocus="this.select()" />
+        <br />
+        <label for="prefix" class="labels">Prefix</label>
+        <input id="prefix" type="text" onfocus="this.select()" />
+        <br />
+        <label for="postfix" class="labels">Postfix</label>
+        <input id="postfix" type="text" onfocus="this.select()" />
+        <br />
+        <label for="wrap" class="labels">Wrap</label>
+        <input id="wrap" type="text" onfocus="this.select()" value="80" />
+        <br />
+        <label for="trim">Trim White Space</label>
+        <input id="trim" type="checkbox" checked="checked" />
+        <br />
+        <div style="margin-top: 0.5em;">
+          <input type="button" class="buttons" value="Plain" onclick="execute()" />
+          <input type="button" class="buttons" value="Markdown" onclick="execute('markdown')" />
+          <input type="button" class="buttons" value="List" onclick="execute('list')" />
+        </div>
       </div>
+      <div><textarea id="html" onfocus="this.select()"></textarea></div>
     </div>
-
-    <div><textarea id="html" cols="100" rows="10" onfocus="this.select()"></textarea></div>
-
     <script src="js/local.js"></script>
     <script src="js/vendor/Markdown.Converter.js"></script>
     <script src="js/vendor/Markdown.Sanitizer.js"></script>

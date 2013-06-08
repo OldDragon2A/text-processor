@@ -60,8 +60,10 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-.labels  { display: inline-block; width: 6em; }
-.buttons { width: 6em; } 
+#container { margin: 20px auto; width: 600px; }
+textarea   { width: 600px; height: 150px; }
+.labels    { display: inline-block; width: 6em; }
+.buttons   { width: 6em; } 
 
 /* ==========================================================================
    Media Queries
