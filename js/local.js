@@ -334,3 +334,35 @@ var util = (function () {
 
   return obj;
 }());
+
+function execute (mode) {
+  var isList, isMarkdown, result, text, html, wrap, converter;
+  
+  isList     = mode === "list" ? true : false;
+  isMarkdown = mode === "markdown" ? true : false;
+  text       = document.getElementById('text');
+  html       = document.getElementById('html');
+  wrap       = document.getElementById('wrap');
+  wrap       = (wrap && wrap.value) ? parseInt(wrap.value, 10) : undefined;
+
+  result = util.encode({
+    text:        text.value,
+    useEntities: document.getElementById('radioEntities').checked,
+    trim:        !isList && !isMarkdown && document.getElementById('trim').checked,
+    wrap:        isList || isMarkdown ? 0 : wrap
+  });
+  if (isMarkdown) {
+    if (converter === undefined) { converter = new Markdown.getSanitizingConverter(); }
+    result = converter.makeHtml(result);
+  } else if (isList) {
+    result = util.makeList({
+      text:      result,
+      separator: document.getElementById('separator').value,
+      prefix:    document.getElementById('prefix').value,
+      postfix:   document.getElementById('postfix').value,
+      wrap:      wrap
+    });
+  }
+  html.value = result;
+  html.focus();
+}
